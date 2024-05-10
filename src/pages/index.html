@@ -5,7 +5,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#000000" />
 	<link rel="icon" href="/favicon.ico" />
-	<link rel="manifest" href="/manifest.json" />
 	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -28,10 +27,10 @@
 			</div>
 		</header>
 
-		<main class="gallery"></main>
+		<main class="gallery"></main> <!--галерея товаров -->
 	</div>
 
-	<div class="modal" id="modal-container">
+	<div class="modal" id="modal-container"> <!--общая модалка-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -40,7 +39,7 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal"> <!--Модалка с полным описанием товара-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -60,7 +59,7 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal"> <!--Модалка с корзиной-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -95,7 +94,7 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal"><!--Модалка с оформлением заказа с полем адреса-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -121,7 +120,7 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal"> <!--модалка с оформлением заказа с полем почты и телефоном-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -144,7 +143,7 @@
 		</div>
 	</div>
 
-	<div class="modal">
+	<div class="modal"> <!--Модалка успешного заказа-->
 		<div class="modal__container">
 			<button class="modal__close" aria-label="закрыть"></button>
 			<div class="modal__content">
@@ -157,7 +156,7 @@
 		</div>
 	</div>
 
-	<template id="success">
+	<template id="success"> <!--Тимплейт успешного оформления заказа-->
 		<div class="order-success">
 			<h2 class="order-success__title">Заказ оформлен</h2>
 			<p class="order-success__description">Списано 0 синапсов</p>
@@ -165,7 +164,7 @@
 		</div>
 	</template>
 
-	<template id="card-catalog">
+	<template id="card-catalog"> <!---->
 		<button class="gallery__item card">
 			<span class="card__category card__category_soft">софт-скил</span>
 			<h2 class="card__title">+1 час в сутках</h2>
@@ -174,7 +173,7 @@
 		</button>
 	</template>
 
-	<template id="card-preview">
+	<template id="card-preview"> <!--Тимплейт товара с полным описанием-->
 		<div class="card card_full">
 			<img class="card__image" src="<%=require('../images/Subtract.svg')%>" alt="" />
 			<div class="card__column">
@@ -189,7 +188,7 @@
 		</div>
 	</template>
 
-	<template id="card-basket">
+	<template id="card-basket"> <!--Тимплейт товара в корзине-->
 		<li class="basket__item card card_compact">
 			<span class="basket__item-index">1</span>
 			<span class="card__title">Фреймворк куки судьбы</span>
@@ -198,7 +197,7 @@
 		</li>
 	</template>
 
-	<template id="basket">
+	<template id="basket"> <!--Тимплейт корзины-->
 		<div class="basket">
 			<h2 class="modal__title">Корзина</h2>
 			<ul class="basket__list"></ul>
@@ -209,7 +208,7 @@
 		</div>
 	</template>
 
-	<template id="order">
+	<template id="order"> <!--Тимплейт оформления заказа с полем адреса-->
 		<form class="form" name="order">
 			<div class="order">
 				<div class="order__field">
@@ -231,7 +230,7 @@
 		</form>
 	</template>
 
-	<template id="contacts">
+	<template id="contacts"> <!--Тимплей формы с полем почты и телефона-->
 		<form class="form" name="contacts">
 			<div class="order">
 				<label class="order__field">

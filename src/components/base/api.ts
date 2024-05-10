@@ -19,19 +19,20 @@ export class Api {
         };
     }
 
+    //обработчик ответа
     protected handleResponse(response: Response): Promise<object> {
         if (response.ok) return response.json();
         else return response.json()
             .then(data => Promise.reject(data.error ?? response.statusText));
     }
-
+    //получение данных(ответа) с сервера
     get(uri: string) {
         return fetch(this.baseUrl + uri, {
             ...this.options,
             method: 'GET'
         }).then(this.handleResponse);
     }
-
+    //отправка данных на сервер
     post(uri: string, data: object, method: ApiPostMethods = 'POST') {
         return fetch(this.baseUrl + uri, {
             ...this.options,
