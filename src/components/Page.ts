@@ -9,12 +9,18 @@ export class Page extends Component<IPage> {
 	protected _counter: HTMLElement; //записываем в класс сами элементы, в которых реализуется счетчик, каталог и затемнение
 	protected _catalog: HTMLElement;
 	protected _wrapper: HTMLElement; //wrapper - обертка
+	protected _basket: HTMLElement;
 
 	constructor(container: HTMLElement, protected events: IEvents) {
 		super(container);
 		this._counter = ensureElement<HTMLElement>('.header__basket-counter');
 		this._catalog = ensureElement<HTMLElement>('.gallery');
 		this._wrapper = ensureElement<HTMLElement>('.page__wrapper');
+		this._basket = ensureElement<HTMLElement>('.header__basket');
+
+		this._basket.addEventListener('click', () => {
+			this.events.emit('basketrender')
+		})
 	}
 
 	set locked(value: boolean) {
@@ -34,4 +40,5 @@ export class Page extends Component<IPage> {
 		//this._counter.innerText = String(value);
 		this.setText(this._counter, value);
 	}
+
 }

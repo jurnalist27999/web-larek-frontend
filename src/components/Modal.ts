@@ -15,13 +15,19 @@ export class Modal extends Component<IModal> {
 			container
 		);
 		this._content = ensureElement<HTMLElement>('.modal__content', container);
+		this._closeButton.addEventListener('click', this.close.bind(this));
+		this.container.addEventListener('click', this.close.bind(this));
+		this._content.addEventListener('click', (event) => event.stopPropagation());
 	}
 
 	set content(value: HTMLElement) {
 		this._content.replaceChildren(value);
 	}
 
+
+
 	open() {
+		
 		this.container.classList.add('modal_active');
 		this.events.emit('modalopen'); //в случае определенного события модалка откроется на странице (emit<T extends object>(event: string, data?: T): void;)
 	}
@@ -30,5 +36,11 @@ export class Modal extends Component<IModal> {
 		this.events.emit('modalclose'); //в случае определенного события модалка закроется (emit<T extends object>(event: string, data?: T): void;)
 		this.container.classList.remove('modal_active');
 		this.content = null;
+	}
+
+	render(data: IModal): HTMLElement {
+		super.render(data);
+		this.open()
+		return this.container;
 	}
 }

@@ -15,20 +15,30 @@ export class Card extends Component<ICard> {
 
 	constructor(container: HTMLElement, actions: ICardActions) {
 		super(container);
-		(this._index = ensureElement<HTMLElement>('.basket__item-index')),
-			this.container;
-		(this._description = ensureElement<HTMLElement>('.card__text')),
-			this.container;
-		(this._image = ensureElement<HTMLImageElement>('.card__image')),
-			this.container;
-		(this._title = ensureElement<HTMLElement>('.card__title')), this.container;
-		(this._category = ensureElement<HTMLElement>('.card__category')),
-			this.container;
-		(this._price = ensureElement<HTMLElement>('.card__price')), this.container;
+		/*this._index = ensureElement<HTMLElement>('.basket__item-index',
+			this.container);*/
 
-		(this._button = ensureElement<HTMLButtonElement>('.card__button')),
-			this.container;
-		this._button.addEventListener('click', actions.onclick);
+		this._description = container.querySelector('.card__text');
+		/*ensureElement<HTMLElement>('.card__text',
+			container);*/
+		this._image = container.querySelector('.card__image');
+		/*ensureElement<HTMLImageElement>('.',
+			this.container);*/
+		this._title = ensureElement<HTMLElement>('.card__title', this.container);
+		this._category = container.querySelector('.card__category');
+		/*ensureElement<HTMLElement>('.',
+			this.container);*/
+		this._price = ensureElement<HTMLElement>('.card__price', this.container);
+
+		this._button = container.querySelector('.card__button'); 
+			if (this._button) {
+				this._button.addEventListener('click', actions.onclick);
+			} else {
+				this.container.addEventListener('click', actions.onclick);
+			}
+		/*ensureElement<HTMLButtonElement>('.card__button',
+			this.container);*/
+		
 	}
 
 	set index(value: number) {
@@ -78,5 +88,16 @@ export class Card extends Component<ICard> {
 
 	get id(): string {
 		return this.container.dataset.id;
+	}
+
+	checkInBasket(container: ICard[], item: ICard) {
+		this.setDisabled(this._button, false)
+		this.setText(this._button, 'В корзину')
+		container.forEach((element) => {
+			if (element.id === item.id) {
+				this.setDisabled(this._button, true)
+				this.setText(this._button, 'Уже добавлен')
+			} 
+		})
 	}
 }

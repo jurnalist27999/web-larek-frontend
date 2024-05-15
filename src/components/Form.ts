@@ -24,4 +24,8 @@ export class Form extends Component<IForm> {
 		//this._errors.innerText = value;
 		this.setText(this._errors, value);
 	}
+
+	protected inputChange(name: string, value: string) {
+		this.events.emit(`${name}change`, {name, value})
+	}
 }
