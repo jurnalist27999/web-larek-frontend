@@ -1,7 +1,9 @@
+import { CatalogItem } from "../components/Card";
+
 export interface IBasket {
 	items: HTMLElement[];
 	price: string | null;
-	selectItems: ICard[]
+	selectItems: CatalogItem[];
 }
 
 export interface ICard {

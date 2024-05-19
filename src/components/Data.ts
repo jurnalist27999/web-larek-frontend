@@ -23,7 +23,7 @@ export class Data {
 
 	setCatalog(items: ICard[]) { //обновление текущего каталога при его изменении
 		this.catalog = items;
-		this.events.emit('itemschanged', { catalog: this.catalog });
+		this.events.emit('items:changed', { catalog: this.catalog });
 	}
 
 	addProduct(container: ICard[], item: ICard) {
@@ -33,9 +33,18 @@ export class Data {
 	getPrice(container: ICard[], value: string) {
 		let sum = 0;
 		container.forEach((element) => {
-			sum += element.price;
+			if(element.price) {
+				sum += element.price;
+			}
+			
 		})
 
 		return sum + value;
 	}
+
+
 }
+
+	
+	
+	

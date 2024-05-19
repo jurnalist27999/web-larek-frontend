@@ -1,7 +1,7 @@
 export abstract class Component<T> {
 	protected constructor(protected readonly container: HTMLElement) {}
 
-	render(data?: Partial<T>): HTMLElement {
+	render(data?: Partial<T>): HTMLElement { //мы делаем поля опциональными
 		Object.assign(this as object, data ?? {});
 		return this.container;
 	}
@@ -26,7 +26,32 @@ export abstract class Component<T> {
         }
     }
 
-	//Инструментарий для работы с DOM в дочерних компонентах
+	
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //Инструментарий для работы с DOM в дочерних компонентах
 	
 	/*
     // Сменить статус блокировки

@@ -29,11 +29,11 @@ export class Modal extends Component<IModal> {
 	open() {
 		
 		this.container.classList.add('modal_active');
-		this.events.emit('modalopen'); //в случае определенного события модалка откроется на странице (emit<T extends object>(event: string, data?: T): void;)
+		this.events.emit('modal:open'); //в случае определенного события модалка откроется на странице (emit<T extends object>(event: string, data?: T): void;)
 	}
 
 	close() {
-		this.events.emit('modalclose'); //в случае определенного события модалка закроется (emit<T extends object>(event: string, data?: T): void;)
+		this.events.emit('modal:close'); //в случае определенного события модалка закроется (emit<T extends object>(event: string, data?: T): void;)
 		this.container.classList.remove('modal_active');
 		this.content = null;
 	}

@@ -33,11 +33,11 @@ export class Order extends Component<IOrder> {
 		);
 		if (this._submitBtn.classList.contains('order__button')) {
 			this._submitBtn.addEventListener('click', () => {
-				this.events.emit('contactrender');
+				this.events.emit('contact:render');
 			});
 		} else {
 			this._submitBtn.addEventListener('click', () => {
-				this.events.emit('orderpost');
+				this.events.emit('order:post');
 			});
 		}
 

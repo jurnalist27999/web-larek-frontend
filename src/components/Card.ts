@@ -101,3 +101,10 @@ export class Card extends Component<ICard> {
 		})
 	}
 }
+
+export class CatalogItem extends Card {
+
+	constructor(conteiner: HTMLElement, actions: ICardActions) {
+		super(conteiner, actions)
+	}
+}

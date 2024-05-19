@@ -19,7 +19,7 @@ export class Page extends Component<IPage> {
 		this._basket = ensureElement<HTMLElement>('.header__basket');
 
 		this._basket.addEventListener('click', () => {
-			this.events.emit('basketrender')
+			this.events.emit('basket:render')
 		})
 	}
 

@@ -37,111 +37,109 @@ events.onAll((event) => {
 	console.log(event);
 });
 
-api.get('/product')   //вывели каталог с карточками с сервера
-.then((res:IResponse)=>
-	data.setCatalog(res.items)
-)
+api
+	.get('/product') //вывели каталог с карточками с сервера
+	.then((res: IResponse) => data.setCatalog(res.items));
 
-events.on('itemschanged', () => {
+events.on('items:changed', () => {
 	page.catalog = data.catalog.map((item) => {
 		const card = new Card(cloneTemplate(cardCatalogTemplate), {
 			onclick: () => {
-				events.emit('cardselect', item);
+				events.emit('card:select', item);
 			},
 		});
 
-	return card.render({
-		title: item.title,
-		image: CDN_URL + item.image,
-		price: item.price,
-		category: item.category,
-		description: item.description
-
-	})
+		return card.render({
+			title: item.title,
+			image: CDN_URL + item.image,
+			price: item.price,
+			category: item.category,
+			description: item.description,
+		});
 	});
 });
 
-events.on('cardselect', (item: ICard) => {
+events.on('card:select', (item: ICard) => {
 	const card = new Card(cloneTemplate(cardPreviewTemplate), {
 		onclick: () => {
-			events.emit('basketchange', item);
+			events.emit('basket:change', item);
 		},
 	});
 
 	modal.render({
 		content: card.render({
-		id: item.id,
-		title: item.title,
-		image: CDN_URL + item.image,
-		price: item.price,
-		category: item.category,
-		description: item.description
-		})
-		
-	})
+			id: item.id,
+			title: item.title,
+			image: CDN_URL + item.image,
+			price: item.price,
+			category: item.category,
+			description: item.description,
+		}),
+	});
 
 	card.checkInBasket(basket.selectItems, item);
-})
+});
 
-events.on('basketchange', (item: ICard) => {
+events.on('basket:change', (item: ICard) => {
 	const card = new Card(cloneTemplate(cardBasketTemplate), {
 		onclick: () => {
-			events.emit('basketdelete', item)
-		}
-	})
+			events.emit('basket:delete', item);
+		},
+	});
 
 	if (item != null) {
 		card.render({
-		id: item.id,
-		title: item.title,
-		price: item.price
-	}) 
+			id: item.id,
+			title: item.title,
+			price: item.price,
+		});
 
-	data.addProduct(basket.selectItems, card)
-	modal.close();
+		data.addProduct(basket.selectItems, card);
+		modal.close();
 	} else {
-		events.emit('basketrender');
+		events.emit('basket:render');
 	}
 
-	page.render({
-		counter: basket.selectItems.length
-	})
+	page.counter = basket.selectItems.length;
 
+	/*page.render({
+		counter: 
+	})*/
 });
 
-events.on('basketdelete', (item: ICard) => {
+events.on('basket:delete', (item: ICard) => {
 	basket.selectItems = basket.selectItems.filter((element) => {
-		return element.id != item.id
-	})
+		return element.id != item.id;
+	});
 
-	events.emit('basketchange', null)
-})
+	events.emit('basket:change', null);
+});
 
-events.on('basketrender', () => {
+events.on('basket:render', () => {
 	modal.render({
 		content: basket.render({
 			items: basket.selectItems.map((element, index) => {
 				return element.render({
-					index: index + 1
-				})
+					index: index + 1,
+				});
 			}),
-			price: data.getPrice(basket.selectItems, ' синапсов')
-		})
-	})
-})
+			price: data.getPrice(basket.selectItems, ' синапсов'),
+		}),
+	});
+});
 
-events.on('modalopen', () => {
-	page.locked = true
-})
+events.on('modal:open', () => {
+	page.locked = true;
+});
 
-events.on('modalclose', () => {
-	page.locked = false
-})
+events.on('modal:close', () => {
+	page.locked = false;
+});
 
-events.on('adressrender', () => {
+events.on('adress:render', () => {
 	modal.render({
 		content: address.render({
-			address: ''
-		})
-	})
-})
+			address: '',
+		}),
+	});
+});

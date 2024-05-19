@@ -1,14 +1,15 @@
 import { IBasket, ICard } from '../types';
 import { ensureElement } from '../utils/utils';
+import { CatalogItem } from './Card';
 import { Component } from './base/Component';
 import { IEvents } from './base/events';
 
-export class Basket extends Component<IBasket> {
-	protected _price: HTMLElement;
+export class Basket extends Component<IBasket> { //интерфейс
+	protected _price: HTMLElement; 
 	protected _list: HTMLElement;
 	protected _button: HTMLButtonElement;
 	total: string;
-	selectItems: ICard[];
+	selectItems: CatalogItem[];
 
 	constructor(container: HTMLElement, protected events: IEvents) {
 		super(container);
@@ -18,7 +19,7 @@ export class Basket extends Component<IBasket> {
 		this._button = ensureElement<HTMLButtonElement>('.basket__button',
 			this.container);
 		this._button.addEventListener('click', () => {
-			this.events.emit('adressrender');
+			this.events.emit('adress:render');
 		});
 		this.selectItems = [];
 		this.total = '';
@@ -27,6 +28,7 @@ export class Basket extends Component<IBasket> {
 	set price(value: string | null) {
 		//this._price.innerText = String(value);
 		this.setText(this._price, value);
+		this.setButtonStatus(value)
 		this.total = value;
 	}
 
@@ -37,6 +39,15 @@ export class Basket extends Component<IBasket> {
 	get price(): string {
 		return this.total;
 	}
+
+	protected setButtonStatus(price: string) {
+		console.log(price);
+		if (parseInt(price) === 0) {
+			this.setDisabled(this._button, true)
+        } else {
+			this.setDisabled(this._button, false)
+		}
+		}
 
 
 }
