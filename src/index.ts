@@ -9,7 +9,7 @@ import { Success } from './components/Success';
 import { Api } from './components/base/api';
 import { EventEmitter } from './components/base/events';
 import './scss/styles.scss';
-import { ICard, IResponse } from './types';
+import { ICard, IOrderResult, IResponse } from './types';
 import { API_URL, CDN_URL } from './utils/constants';
 import { cloneTemplate, ensureElement } from './utils/utils';
 
@@ -18,6 +18,7 @@ const events = new EventEmitter();
 const page = new Page(document.body, events);
 const modal = new Modal(ensureElement<HTMLElement>('#modal-container'), events);
 const data = new Data(events);
+
 
 //const success = new Success(ensureElement<HTMLElement>('.order-success'), actions);
 //const form = new Form(ensureElement<HTMLElement>('.form'), events);
@@ -102,9 +103,6 @@ events.on('basket:change', (item: ICard) => {
 
 	page.counter = basket.selectItems.length;
 
-	/*page.render({
-		counter: 
-	})*/
 });
 
 events.on('basket:delete', (item: ICard) => {
@@ -140,6 +138,63 @@ events.on('adress:render', () => {
 	modal.render({
 		content: address.render({
 			address: '',
+			valid: address.valid,
+			errors: address.errors
 		}),
 	});
 });
+
+events.on('contact:render', () => {
+	modal.render({
+		content: contacts.render({
+			email: '',
+			phone: '',
+			valid: contacts.valid,
+			errors: contacts.errors
+		}),
+	});
+	contacts.order.payment = address.order.payment;
+});
+
+events.on('order:post', () => {
+	const items: string[] = [];
+	basket.selectItems.forEach((element) => {
+		if (element.price) {
+			items.push(element.id)
+		}
+	})
+	data.setOrder({
+		address: address.order.address,
+		payment: address.order.payment,
+		email: contacts.order.email,
+		phone: contacts.order.phone,
+		items: items,
+		total: parseInt(basket.total)
+	}) 
+
+	api.post('/order', data.order)
+	.then((data: IOrderResult) => data )
+	.then(() => {events.emit('order:success')})
+	.catch((error) => {
+		modal.close()
+		console.log(error)
+	})
+
+})
+
+events.on('order:success', () => {
+	const success = new Success(cloneTemplate(successTemplate), {onclick:() => {
+		data.clearBasket(basket.selectItems)
+		page.counter = 0;
+		events.emit('basket:change', null)
+		modal.close();
+	}})
+
+	modal.render({
+		content: success.render({
+			total: basket.price
+		})
+	})
+}) 
+
+

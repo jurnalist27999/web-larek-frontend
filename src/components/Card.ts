@@ -2,7 +2,6 @@ import { ICard, ICardActions } from '../types';
 import { categoryClass } from '../utils/constants';
 import { ensureElement } from '../utils/utils';
 import { Component } from './base/Component';
-import { IEvents } from './base/events';
 
 export class Card extends Component<ICard> {
 	protected _index: HTMLElement;
@@ -15,39 +14,29 @@ export class Card extends Component<ICard> {
 
 	constructor(container: HTMLElement, actions: ICardActions) {
 		super(container);
-		/*this._index = ensureElement<HTMLElement>('.basket__item-index',
-			this.container);*/
 
 		this._description = container.querySelector('.card__text');
-		/*ensureElement<HTMLElement>('.card__text',
-			container);*/
+
 		this._image = container.querySelector('.card__image');
-		/*ensureElement<HTMLImageElement>('.',
-			this.container);*/
+
 		this._title = ensureElement<HTMLElement>('.card__title', this.container);
 		this._category = container.querySelector('.card__category');
-		/*ensureElement<HTMLElement>('.',
-			this.container);*/
+
 		this._price = ensureElement<HTMLElement>('.card__price', this.container);
 
-		this._button = container.querySelector('.card__button'); 
-			if (this._button) {
-				this._button.addEventListener('click', actions.onclick);
-			} else {
-				this.container.addEventListener('click', actions.onclick);
-			}
-		/*ensureElement<HTMLButtonElement>('.card__button',
-			this.container);*/
-		
+		this._button = container.querySelector('.card__button');
+		if (this._button) {
+			this._button.addEventListener('click', actions.onclick);
+		} else {
+			this.container.addEventListener('click', actions.onclick);
+		}
 	}
 
 	set index(value: number) {
-		//this._index.innerText = String(value);
 		this.setText(this._index, value);
 	}
 
 	set discription(value: string) {
-		//this._description.innerText = value;
 		this.setText(this._description, value);
 	}
 
@@ -56,12 +45,10 @@ export class Card extends Component<ICard> {
 	}
 
 	set title(value: string) {
-		//this._title.innerText = value;
 		this.setText(this._title, value);
 	}
 
 	set category(value: string) {
-		//this._category.innerText = value;
 		this.setText(this._category, value);
 		this._category.classList.add(`card__category_${categoryClass.get(value)}`);
 	}
@@ -91,20 +78,19 @@ export class Card extends Component<ICard> {
 	}
 
 	checkInBasket(container: ICard[], item: ICard) {
-		this.setDisabled(this._button, false)
-		this.setText(this._button, 'В корзину')
+		this.setDisabled(this._button, false);
+		this.setText(this._button, 'В корзину');
 		container.forEach((element) => {
 			if (element.id === item.id) {
-				this.setDisabled(this._button, true)
-				this.setText(this._button, 'Уже добавлен')
-			} 
-		})
+				this.setDisabled(this._button, true);
+				this.setText(this._button, 'Уже добавлен');
+			}
+		});
 	}
 }
 
 export class CatalogItem extends Card {
-
 	constructor(conteiner: HTMLElement, actions: ICardActions) {
-		super(conteiner, actions)
+		super(conteiner, actions);
 	}
 }

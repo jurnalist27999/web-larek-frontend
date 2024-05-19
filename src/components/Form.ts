@@ -14,21 +14,19 @@ export class Form<T> extends Component<IForm> {
 			'button[type=submit]',
 			this.container
 		);
-
 		this.container.addEventListener('input', (event) => {
-			const target = event.target as HTMLInputElement
-			const name = target.name 
-			const value = target.value
-			this.inputChange(name, value)
-		})
+			const target = event.target as HTMLInputElement;
+			const name = target.name;
+			const value = target.value;
+			this.inputChange(name, value);
+		});
 
 		this.container.addEventListener('submit', (event: Event) => {
-			event.preventDefault()
-			console.log(event.target)
+			event.preventDefault();
+			console.log(event.target);
 			const form = event.target as HTMLFormElement;
-			this.events.emit(`${form.name}:submit`)
-		})
-
+			this.events.emit(`${form.name}:submit`);
+		});
 	}
 
 	set valid(value: boolean) {
@@ -36,19 +34,17 @@ export class Form<T> extends Component<IForm> {
 	}
 
 	set errors(value: string) {
-		//this._errors.innerText = value;
 		this.setText(this._errors, value);
 	}
 
 	protected inputChange(name: string, value: string) {
-		this.events.emit(`${name}:change`, {name, value})
+		this.events.emit(`${name}:change`, { name, value });
 	}
 
 	render(state: Partial<T> & IForm) {
-		const {valid, errors, ...inputs} = state;
-		super.render({valid, errors})
+		const { valid, errors, ...inputs } = state;
+		super.render({ valid, errors });
 		Object.assign(this, inputs);
 		return this.container;
 	}
-
 }

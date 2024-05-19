@@ -24,10 +24,7 @@ export class Modal extends Component<IModal> {
 		this._content.replaceChildren(value);
 	}
 
-
-
 	open() {
-		
 		this.container.classList.add('modal_active');
 		this.events.emit('modal:open'); //в случае определенного события модалка откроется на странице (emit<T extends object>(event: string, data?: T): void;)
 	}
@@ -40,7 +37,7 @@ export class Modal extends Component<IModal> {
 
 	render(data: IModal): HTMLElement {
 		super.render(data);
-		this.open()
+		this.open();
 		return this.container;
 	}
 }

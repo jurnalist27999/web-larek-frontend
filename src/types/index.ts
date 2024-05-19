@@ -1,4 +1,4 @@
-import { CatalogItem } from "../components/Card";
+import { CatalogItem } from '../components/Card';
 
 export interface IBasket {
 	items: HTMLElement[];
@@ -23,7 +23,13 @@ export interface IOrder {
 	email: string;
 	phone: string;
 	total: number;
-	items: ICard[];
+	items: string[];
+	[key: string]: unknown;
+}
+
+export interface IOrderResult {
+	id: string;
+	total: number;
 }
 
 export interface IForm {
@@ -37,7 +43,6 @@ export interface IModal {
 }
 
 export interface IPage {
-	//интерфецс класс Page.
 	counter: number; //типизация свойства счетчика корзины
 	catalog: HTMLElement[]; //типизация свойства каталога с товарами(элементами)
 	locked: boolean; //locked - запертый. типизация состояния сттраницы при открытии или закрытии модального окна - затемнено или нет.
@@ -47,15 +52,15 @@ export interface ISuccess {
 	total: string;
 }
 
+export interface IResponse {
+	total: number;
+	items: ICard[];
+}
+
 export interface IData {
 	catalog: ICard;
 	basket: ICard[]; //надо подумать, что указать
 	order: IOrder;
-}
-
-export interface IResponse {
-	total: number;
-	items: ICard[];
 }
 
 export interface ICardActions {
@@ -65,4 +70,3 @@ export interface ICardActions {
 export interface ISuccessActions {
 	onclick: () => void;
 }
-

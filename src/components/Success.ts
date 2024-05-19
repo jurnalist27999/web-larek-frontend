@@ -3,8 +3,6 @@ import { ensureElement } from '../utils/utils';
 
 import { Component } from './base/Component';
 
-
-
 export class Success extends Component<ISuccess> {
 	protected _total: HTMLElement;
 	protected _close: HTMLElement;
@@ -12,7 +10,7 @@ export class Success extends Component<ISuccess> {
 	constructor(container: HTMLElement, actions: ISuccessActions) {
 		super(container);
 		this._total = ensureElement<HTMLDivElement>(
-			'.film__description',
+			'.order-success__description',
 			this.container
 		);
 		this._close = ensureElement<HTMLButtonElement>(
