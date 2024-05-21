@@ -39,11 +39,13 @@ export class Order extends Form<IOrder> {
 			});
 		}
 
-		this._payment.forEach((element) => {
+		if (this._payment) {
+				this._payment.forEach((element) => {
 			element.addEventListener('click', (event) => {
 				this.toggleButton(element);
 			});
 		});
+		}
 
 		this.errors = '';
 		this.enableValidation();

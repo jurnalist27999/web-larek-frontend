@@ -20,6 +20,7 @@ export class Card extends Component<ICard> {
 		this._image = container.querySelector('.card__image');
 
 		this._title = ensureElement<HTMLElement>('.card__title', this.container);
+		
 		this._category = container.querySelector('.card__category');
 
 		this._price = ensureElement<HTMLElement>('.card__price', this.container);
@@ -30,13 +31,15 @@ export class Card extends Component<ICard> {
 		} else {
 			this.container.addEventListener('click', actions.onclick);
 		}
+
+		this._index = container.querySelector('.basket__item-index');
 	}
 
 	set index(value: number) {
 		this.setText(this._index, value);
 	}
 
-	set discription(value: string) {
+	set description(value: string) {
 		this.setText(this._description, value);
 	}
 
@@ -50,7 +53,7 @@ export class Card extends Component<ICard> {
 
 	set category(value: string) {
 		this.setText(this._category, value);
-		this._category.classList.add(`card__category_${categoryClass.get(value)}`);
+		this.toggleClass(this._category, `card__category_${categoryClass.get(value)}`)
 	}
 
 	set price(value: number | null) {

@@ -183,10 +183,10 @@ events.on('order:post', () => {
 })
 
 events.on('order:success', () => {
-	const success = new Success(cloneTemplate(successTemplate), {onclick:() => {
-		data.clearBasket(basket.selectItems)
+	data.clearBasket(basket.selectItems)
 		page.counter = 0;
 		events.emit('basket:change', null)
+	const success = new Success(cloneTemplate(successTemplate), {onclick:() => {
 		modal.close();
 	}})
 
